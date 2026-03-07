@@ -7,6 +7,7 @@ Natural language scientific tooling skills.
 | Skill | Purpose | Data |
 |-------|---------|------|
 | `ccf-rank` | Query CCF conference/journal rank (`A/B/C`) and type (`conference`/`journal`) | CCF catalog |
+| `ieee-search-mcp` | Search IEEE Xplore through university library proxy session with browser MCP, supporting keyword/advanced/journal paths and optional CCF post-filter | School library portal + IEEE Xplore |
 
 ## Installation
 
@@ -22,6 +23,7 @@ Install one specific skill only:
 
 ```bash
 npx skills add https://github.com/DURUII/scientific-skills --skill ccf-rank
+npx skills add https://github.com/DURUII/scientific-skills --skill ieee-search-mcp
 ```
 
 ### Via Claude Plugin
@@ -36,6 +38,7 @@ Install only one skill directory (if your client supports path-based install):
 
 ```bash
 /plugin install DURUII/scientific-skills/skills/ccf-rank
+/plugin install DURUII/scientific-skills/skills/ieee-search-mcp
 ```
 
 ### Manual Installation
@@ -53,6 +56,9 @@ Manual local usage without plugin install:
 ```bash
 cd ~/dev/scientific-skills/skills/ccf-rank
 node scripts/query_ccf_rank.mjs "AAAI"
+
+cd ~/dev/scientific-skills/skills/ieee-search-mcp
+# Use SKILL.md workflow with an available browser MCP tool (for example chrome-devtools)
 ```
 
 ## Useful External Skills
