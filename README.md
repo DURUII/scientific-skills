@@ -8,6 +8,7 @@ Natural language scientific tooling skills.
 |-------|---------|------|
 | `ccf-rank` | Query CCF conference/journal rank (`A/B/C`) and type (`conference`/`journal`) | CCF catalog |
 | `ieee-search-mcp` | Search IEEE Xplore through university library proxy session with browser MCP, supporting keyword/advanced/journal paths and optional CCF post-filter | School library portal + IEEE Xplore |
+| `dlai-transcript-fetcher` | Fetch and organize video transcripts (VTT) from DeepLearning.AI courses, converting them to clean Markdown files | DeepLearning.AI course pages |
 
 ## Installation
 
@@ -24,6 +25,7 @@ Install one specific skill only:
 ```bash
 npx skills add https://github.com/DURUII/scientific-skills --skill ccf-rank
 npx skills add https://github.com/DURUII/scientific-skills --skill ieee-search-mcp
+npx skills add https://github.com/DURUII/scientific-skills --skill dlai-transcript-fetcher
 ```
 
 ### Via Claude Plugin
@@ -38,7 +40,7 @@ Install only one skill directory (if your client supports path-based install):
 
 ```bash
 /plugin install DURUII/scientific-skills/skills/ccf-rank
-/plugin install DURUII/scientific-skills/skills/ieee-search-mcp
+/plugin install DURUII/scientific-skills/skills/dlai-transcript-fetcher
 ```
 
 ### Manual Installation
@@ -66,3 +68,25 @@ cd ~/dev/scientific-skills/skills/ieee-search-mcp
 Here are some third-party skills that are also useful for scientific workflows:
 
 - [arxiv-search by yorkeccak](https://skills.sh/yorkeccak/scientific-skills/arxiv-search): Semantic arXiv search with natural-language queries.
+
+## Skill Details
+
+### dlai-transcript-fetcher
+
+Fetches video transcripts from DeepLearning.AI courses and saves them as organized Markdown files.
+
+**Prerequisites:**
+- Chrome DevTools MCP configured with `--auto-connect` in `~/.claude.json`
+- Chrome 146+ with remote debugging enabled at `chrome://inspect/#remote-debugging`
+- User logged into DeepLearning.AI in the Chrome browser
+
+See `skills/dlai-transcript-fetcher/references/mcp-setup.md` for full setup instructions.
+
+**Usage:** When user provides a DeepLearning.AI course URL or asks to download course transcripts.
+
+**How it works:**
+1. Uses Chrome DevTools MCP to visit the course lesson page
+2. Extracts VTT subtitle URLs via `performance.getEntries`
+3. Downloads all VTT files and converts them to clean Markdown
+4. Saves to `transcripts/` subdirectory with ordered, descriptive filenames
+
