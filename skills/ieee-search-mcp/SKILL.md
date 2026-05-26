@@ -23,6 +23,7 @@ Use this skill when user requires IEEE Xplore search through school library acce
    - `proxy_ieee_home`
    - `db_keyword_candidates`
    - Optional: `known_database_detail_url`
+   - Optional: `known_journals` — a map of alias -> `{name, punumber, proxy_url}` for journals the user accesses frequently
 4. Demo/default profile is `wust` (Wuhan University of Science and Technology).
 
 ## Common User Intent Paths
@@ -48,6 +49,24 @@ Use this skill when user requires IEEE Xplore search through school library acce
 1. Confirm mode with user (`keyword` / `advanced` / `journal`).
 2. Ask for missing constraints (query fields, journal name, years, document type).
 3. Execute search and return structured results.
+
+### Path D: Known Journal / Direct Navigation (fast path)
+
+When user mentions a journal by alias or full name and the profile has a `known_journals` entry:
+
+1. Match user input against `known_journals` keys (case-insensitive) or `name` fields.
+2. If matched, navigate directly to the cached `proxy_url` — skip Path A search flow entirely.
+3. Verify institutional session (`Access provided by:` or proxy host in URL).
+4. If session expired, fall through to Path A to re-authenticate, then return to the cached URL.
+5. After reaching the journal page, proceed with any user-requested action (browse recent, search within, etc.).
+
+### Learning new journal shortcuts
+
+When the user navigates to a journal not yet in `known_journals`:
+
+1. Record the punumber and constructed proxy URL after successful navigation.
+2. Remind the user: "I've noted this journal as a known shortcut — next time just mention it by name and I'll go directly."
+3. The agent should suggest adding to `known_journals` in the school profile. If the user confirms, update `assets/school_profiles.example.json` accordingly.
 
 ## Failure Branches From Real WUST Flow
 
