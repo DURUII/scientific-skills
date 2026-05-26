@@ -10,7 +10,14 @@
       "notes": [
         "WUST library often indexes IEEE as IEL.",
         "Prefer staying in proxy session instead of opening public ieeexplore.ieee.org directly."
-      ]
+      ],
+      "known_journals": {
+        "TMC": {
+          "name": "IEEE Transactions on Mobile Computing",
+          "punumber": "7755",
+          "proxy_url": "https://metaersp-2.wust.edu.cn/s/org/ieee/ieeexplore/G.https/xpl/RecentIssue.jsp?punumber=7755"
+        }
+      }
     }
   }
 }
